@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: student-service
-        image: amoradev/student-service:0.1.0
+        image: distrischool/student-service:0.1.0
         ports:
         - containerPort: 8080
         env:

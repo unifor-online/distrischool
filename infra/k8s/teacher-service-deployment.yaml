@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: teacher-service
-        image: amoradev/teacher-service:0.1.0
+        image: distrischool/teacher-service:0.1.0
         ports:
         - containerPort: 8080
         env:
