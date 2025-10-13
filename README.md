@@ -59,11 +59,11 @@ docker-compose down -v
 
 ### Kubernetes
 
-#### Pré-requisitos para Kubernetes
+### Pré-requisitos para Kubernetes
 - kubectl (cliente Kubernetes)
 - kind (para cluster local) ou minikube
 
-#### Criar cluster local
+### Criar cluster local
 
 ```bash
 ```
