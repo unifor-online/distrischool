@@ -57,6 +57,63 @@ docker-compose down
 docker-compose down -v
 ```
 
+### Kubernetes
+
+#### Pré-requisitos para Kubernetes
+- kubectl (cliente Kubernetes)
+- kind (para cluster local) ou minikube
+
+#### Criar cluster local
+
+```bash
+```
+kind create cluster --name distrischool
+```
+
+Ou, para criar um cluster local usando o Minikube:
+
+```bash
+minikube start --profile distrischool
+```
+
+#### Deploy dos serviços
+
+Use o script de deploy:
+
+```bash
+./deploy-k8s.sh
+```
+
+Ou aplique manualmente os manifestos:
+
+```bash
+kubectl apply -f infra/k8s/
+```
+
+#### Verificar status dos pods e serviços
+
+```bash
+kubectl get all -n distrischool
+```
+
+#### Acessar serviços (port-forward)
+
+Como os serviços são ClusterIP, use port-forward para acessar localmente:
+
+```bash
+kubectl port-forward svc/user-service-svc 8081:80 -n distrischool &
+kubectl port-forward svc/student-service-svc 8082:80 -n distrischool &
+kubectl port-forward svc/teacher-service-svc 8083:80 -n distrischool &
+kubectl port-forward svc/admin-staff-service-svc 8084:80 -n distrischool &
+```
+
+#### Parar e limpar cluster
+
+```bash
+kubectl delete -f infra/k8s/
+kind delete cluster --name distrischool
+```
+
 ## 🔧 Configuração
 
 ### Variáveis de Ambiente
@@ -88,6 +145,8 @@ Cada serviço Spring Boot expõe endpoints de monitoramento:
 - `http://localhost:8082/actuator/health` - Student Service
 - `http://localhost:8083/actuator/health` - Teacher Service
 - `http://localhost:8084/actuator/health` - Admin Staff Service
+
+**Nota para Kubernetes**: Execute os comandos de port-forward antes de acessar os endpoints.
 
 ## 🛠️ Desenvolvimento
 
@@ -142,6 +201,7 @@ Se alguma porta já estiver em uso, edite o arquivo `infra/docker/docker-compose
 - **PostgreSQL 16** - Banco de dados
 - **Apache Kafka** - Message streaming
 - **Docker & Docker Compose** - Containerização
+- **Kubernetes** - Orquestração de containers
 - **Maven** - Gerenciamento de dependências
 
 ## 🏗️ Estrutura do Projeto
@@ -152,6 +212,7 @@ distrischool/
 ├── student-service/          # Microserviço de alunos
 ├── teacher-service/          # Microserviço de professores
 ├── user-service/             # Microserviço de usuários
+├── deploy-k8s.sh             # Script de deploy Kubernetes
 ├── infra/
 │   ├── docker/
 │   │   └── docker-compose.yml  # Orquestração dos containers
