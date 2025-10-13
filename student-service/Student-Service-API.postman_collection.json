@@ -1,0 +1,301 @@
+{
+  "info": {
+    "name": "Student Service API",
+    "description": "API completa para gestão de alunos com criptografia e LGPD",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "student-service-v1"
+  },
+  "item": [
+    {
+      "name": "Health & Monitoring",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/actuator/health",
+              "host": ["{{base_url}}"],
+              "path": ["actuator", "health"]
+            },
+            "description": "Verifica se a aplicação está rodando e saudável"
+          },
+          "response": []
+        },
+        {
+          "name": "Actuator Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/actuator",
+              "host": ["{{base_url}}"],
+              "path": ["actuator"]
+            },
+            "description": "Informações sobre a aplicação"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Alunos - CRUD",
+      "item": [
+        {
+          "name": "Criar Aluno",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set(\"aluno_id\", jsonData.id);",
+                  "    pm.test(\"Aluno criado com sucesso\", function () {",
+                  "        pm.expect(jsonData.id).to.exist;",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João Victor Amora\",\n  \"dataNascimento\": \"2000-01-15\",\n  \"endereco\": \"Rua das Flores, 123, Fortaleza-CE\",\n  \"contato\": \"85999999999\",\n  \"matricula\": \"2024001\",\n  \"turma\": \"3A\",\n  \"historicoAcademico\": \"Cursou disciplinas de Matemática e Português com bom desempenho. Participou de olimpíadas científicas.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/alunos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "alunos"]
+            },
+            "description": "Cria um novo aluno. O histórico acadêmico é automaticamente criptografado."
+          },
+          "response": []
+        },
+        {
+          "name": "Criar Aluno - Maria",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Maria Silva Santos\",\n  \"dataNascimento\": \"1999-05-20\",\n  \"endereco\": \"Av. Principal, 789, Fortaleza-CE\",\n  \"contato\": \"85987654321\",\n  \"matricula\": \"2024002\",\n  \"turma\": \"3A\",\n  \"historicoAcademico\": \"Excelente desempenho em Ciências e Biologia. Monitora de laboratório.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/alunos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "alunos"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Criar Aluno - Pedro",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Pedro Henrique Costa\",\n  \"dataNascimento\": \"2001-03-10\",\n  \"endereco\": \"Rua Nova, 456, Fortaleza-CE\",\n  \"contato\": \"85988887777\",\n  \"matricula\": \"2024003\",\n  \"turma\": \"2B\",\n  \"historicoAcademico\": \"Bom aluno, participativo nas aulas de História e Geografia.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/alunos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "alunos"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Aluno por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/alunos/{{aluno_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "alunos", "{{aluno_id}}"]
+            },
+            "description": "Busca um aluno específico pelo ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Editar Aluno",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João Victor Amora - ATUALIZADO\",\n  \"dataNascimento\": \"2000-01-15\",\n  \"endereco\": \"Rua Atualizada, 999, Fortaleza-CE\",\n  \"contato\": \"85999999999\",\n  \"matricula\": \"2024001\",\n  \"turma\": \"3B\",\n  \"historicoAcademico\": \"Histórico atualizado: Concluiu curso avançado de Programação. Novo monitor da turma.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/alunos/{{aluno_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "alunos", "{{aluno_id}}"]
+            },
+            "description": "Atualiza os dados de um aluno existente"
+          },
+          "response": []
+        },
+        {
+          "name": "Excluir Aluno",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/alunos/{{aluno_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "alunos", "{{aluno_id}}"]
+            },
+            "description": "Remove um aluno do sistema (retorna 204 No Content)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Alunos - Buscas",
+      "item": [
+        {
+          "name": "Buscar por Matrícula",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/alunos/matricula/2024001",
+              "host": ["{{base_url}}"],
+              "path": ["api", "alunos", "matricula", "2024001"]
+            },
+            "description": "Busca um aluno pela matrícula (único)"
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar por Nome",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/alunos/nome/João",
+              "host": ["{{base_url}}"],
+              "path": ["api", "alunos", "nome", "João"]
+            },
+            "description": "Busca alunos que contenham o nome especificado (pode retornar múltiplos)"
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar por Nome - Maria",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/alunos/nome/Maria",
+              "host": ["{{base_url}}"],
+              "path": ["api", "alunos", "nome", "Maria"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar por Turma - 3A",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/alunos/turma/3A",
+              "host": ["{{base_url}}"],
+              "path": ["api", "alunos", "turma", "3A"]
+            },
+            "description": "Busca todos os alunos de uma turma específica"
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar por Turma - 2B",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/alunos/turma/2B",
+              "host": ["{{base_url}}"],
+              "path": ["api", "alunos", "turma", "2B"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Testes de Erro",
+      "item": [
+        {
+          "name": "Buscar ID Inexistente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/alunos/99999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "alunos", "99999"]
+            },
+            "description": "Deve retornar 404 Not Found"
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Matrícula Inexistente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/alunos/matricula/9999999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "alunos", "matricula", "9999999"]
+            },
+            "description": "Deve retornar 404 Not Found"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "aluno_id",
+      "value": "1",
+      "type": "string"
+    }
+  ]
+}
