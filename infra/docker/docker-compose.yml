@@ -1,4 +1,22 @@
 services:
+  gateway:
+    build:
+      context: ../../gateway-service
+      dockerfile: Dockerfile
+    env_file:
+      - ../../gateway-service/.env
+    environment:
+      PORT: 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      - user-service
+      - student-service
+      - teacher-service
+      - admin-staff-service
+    networks:
+      - distrischool-network
+
   postgres:
     image: postgres:16
     environment:
