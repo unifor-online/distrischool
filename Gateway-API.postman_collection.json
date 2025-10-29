@@ -1,0 +1,415 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+		"name": "Gateway API - Distrischool",
+		"description": "Collection completa para testar todos os serviços através do API Gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "gateway_url",
+			"value": "http://localhost:8080"
+		}
+	],
+	"item": [
+		{
+			"name": "Gateway Health & Monitoring",
+			"item": [
+				{
+					"name": "Gateway Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/actuator/health"
+					},
+					"response": []
+				},
+				{
+					"name": "Gateway Routes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/actuator/gateway/routes"
+					},
+					"response": []
+				},
+				{
+					"name": "Gateway Metrics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/actuator/metrics"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teacher Service",
+			"item": [
+				{
+					"name": "List All Teachers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/api/teachers"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Teacher by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/api/teachers/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Teacher",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Ana Pereira\",\n  \"qualificacao\": \"Mestrado em Matematica\",\n  \"contato\": \"85991234567\"\n}"
+						},
+						"url": "{{gateway_url}}/api/teachers"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Teacher",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Ana Pereira ATUALIZADA\",\n  \"qualificacao\": \"Doutorado em Educacao\",\n  \"contato\": \"85999887766\"\n}"
+						},
+						"url": "{{gateway_url}}/api/teachers/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Teacher",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{gateway_url}}/api/teachers/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Teacher Service Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/services/teacher/actuator/health"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student Service (Alunos)",
+			"item": [
+				{
+					"name": "List All Students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/api/alunos"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/api/alunos/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student by Matricula",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/api/alunos/matricula/2024001"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Students by Nome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/api/alunos/nome/Joao"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Students by Turma",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/api/alunos/turma/Turma A"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Joao Santos\",\n  \"dataNascimento\": \"2005-03-15\",\n  \"endereco\": \"Rua das Flores, 123\",\n  \"contato\": \"85991234567\",\n  \"matricula\": \"2024001\",\n  \"turma\": \"Turma A\",\n  \"historicoAcademico\": \"Aluno exemplar\"\n}"
+						},
+						"url": "{{gateway_url}}/api/alunos"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Student",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Joao Santos ATUALIZADO\",\n  \"dataNascimento\": \"2005-03-15\",\n  \"endereco\": \"Rua Nova, 456\",\n  \"contato\": \"85999887766\",\n  \"matricula\": \"2024001\",\n  \"turma\": \"Turma B\",\n  \"historicoAcademico\": \"Transferido de turma\"\n}"
+						},
+						"url": "{{gateway_url}}/api/alunos/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Student",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{gateway_url}}/api/alunos/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Student Service Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/services/student/actuator/health"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Service",
+			"item": [
+				{
+					"name": "List All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/api/v1/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/api/v1/users/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"admin\",\n  \"email\": \"admin@distrischool.com\",\n  \"password\": \"senha123\"\n}"
+						},
+						"url": "{{gateway_url}}/api/v1/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{gateway_url}}/api/v1/users/1"
+					},
+					"response": []
+				},
+				{
+					"name": "User Service Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/services/user/actuator/health"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin Staff Service",
+			"item": [
+				{
+					"name": "List All Admin Staff",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/api/admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Admin Staff by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/api/admin/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Admin Staff",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Carlos Admin\",\n  \"cargo\": \"Diretor\",\n  \"contato\": \"85988888888\"\n}"
+						},
+						"url": "{{gateway_url}}/api/admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Admin Staff",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Carlos Admin ATUALIZADO\",\n  \"cargo\": \"Coordenador\",\n  \"contato\": \"85999999999\"\n}"
+						},
+						"url": "{{gateway_url}}/api/admin/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Admin Staff",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{gateway_url}}/api/admin/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Service Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/services/admin/actuator/health"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service Health Checks",
+			"item": [
+				{
+					"name": "Gateway Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/actuator/health"
+					},
+					"response": []
+				},
+				{
+					"name": "Teacher Service Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/services/teacher/actuator/health"
+					},
+					"response": []
+				},
+				{
+					"name": "Student Service Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/services/student/actuator/health"
+					},
+					"response": []
+				},
+				{
+					"name": "User Service Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/services/user/actuator/health"
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Service Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{gateway_url}}/services/admin/actuator/health"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

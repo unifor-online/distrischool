@@ -1,0 +1,754 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+		"name": "Distrischool Complete API",
+		"description": "Coleção completa de testes da API Gateway do Distrischool - todos os serviços (Teacher, Student, User, Admin)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Gateway Health",
+			"item": [
+				{
+					"name": "Gateway Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/actuator/health",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"actuator",
+								"health"
+							]
+						},
+						"description": "Verifica o status de saúde do API Gateway"
+					},
+					"response": []
+				},
+				{
+					"name": "Gateway Routes Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/actuator/gateway/routes",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"actuator",
+								"gateway",
+								"routes"
+							]
+						},
+						"description": "Lista todas as rotas configuradas no Gateway"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teacher Service",
+			"item": [
+				{
+					"name": "List All Teachers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/api/teachers",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"teachers"
+							]
+						},
+						"description": "Lista todos os professores cadastrados"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Teacher by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/api/teachers/4",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"teachers",
+								"4"
+							]
+						},
+						"description": "Busca um professor específico por ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Teacher",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Gera número aleatório para tornar dados únicos",
+									"pm.environment.set(\"random_number\", Math.floor(Math.random() * 9000) + 1000);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Professor Teste {{random_number}}\",\n    \"qualificacao\": \"Mestrado em Computacao\",\n    \"contato\": \"85912345{{random_number}}\"\n}"
+						},
+						"url": {
+							"raw": "{{gateway_url}}/api/teachers",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"teachers"
+							]
+						},
+						"description": "Cria um novo professor com dados únicos (número aleatório)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Teacher",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Professor Atualizado Postman\",\n    \"qualificacao\": \"Doutorado em Sistemas Distribuidos\",\n    \"contato\": \"85987654321\"\n}"
+						},
+						"url": {
+							"raw": "{{gateway_url}}/api/teachers/{{teacher_id}}",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"teachers",
+								"{{teacher_id}}"
+							]
+						},
+						"description": "Atualiza os dados de um professor existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Teacher",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/api/teachers/{{teacher_id}}",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"teachers",
+								"{{teacher_id}}"
+							]
+						},
+						"description": "Remove um professor do sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Teacher Service Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/services/teacher/actuator/health",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"services",
+								"teacher",
+								"actuator",
+								"health"
+							]
+						},
+						"description": "Verifica o status do Teacher Service"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student Service",
+			"item": [
+				{
+					"name": "List All Students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/api/alunos",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"alunos"
+							]
+						},
+						"description": "Lista todos os alunos cadastrados"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/api/alunos/1",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"alunos",
+								"1"
+							]
+						},
+						"description": "Busca um aluno específico por ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Students by Turma",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/api/alunos/turma/3A",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"alunos",
+								"turma",
+								"3A"
+							]
+						},
+						"description": "Lista todos os alunos de uma turma específica"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student by Matricula",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/api/alunos/matricula/2024002",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"alunos",
+								"matricula",
+								"2024002"
+							]
+						},
+						"description": "Busca um aluno por número de matrícula"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Student",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Gera número aleatório para dados únicos",
+									"pm.environment.set(\"random_number\", Math.floor(Math.random() * 9000) + 1000);",
+									"// Matrícula será gerada automaticamente pelo backend"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Aluno Teste {{random_number}}\",\n    \"dataNascimento\": \"2005-08-20\",\n    \"endereco\": \"Rua Teste, {{random_number}}\",\n    \"contato\": \"85923456{{random_number}}\",\n    \"turma\": \"2B\",\n    \"historicoAcademico\": \"Aluno novo cadastrado via Postman\"\n}"
+						},
+						"url": {
+							"raw": "{{gateway_url}}/api/alunos",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"alunos"
+							]
+						},
+						"description": "Cria um novo aluno - matrícula gerada automaticamente no formato ANO + SEQUENCIAL"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Student",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Aluno Atualizado Postman\",\n    \"dataNascimento\": \"2005-08-20\",\n    \"endereco\": \"Rua Atualizada, 789\",\n    \"contato\": \"85998765432\",\n    \"matricula\": \"2024999\",\n    \"turma\": \"3A\",\n    \"historicoAcademico\": \"Aluno atualizado via Postman\"\n}"
+						},
+						"url": {
+							"raw": "{{gateway_url}}/api/alunos/{{student_id}}",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"alunos",
+								"{{student_id}}"
+							]
+						},
+						"description": "Atualiza os dados de um aluno existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Student",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/api/alunos/{{student_id}}",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"alunos",
+								"{{student_id}}"
+							]
+						},
+						"description": "Remove um aluno do sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Student Service Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/services/student/actuator/health",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"services",
+								"student",
+								"actuator",
+								"health"
+							]
+						},
+						"description": "Verifica o status do Student Service"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Service",
+			"item": [
+				{
+					"name": "List All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/api/v1/users",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						},
+						"description": "Lista todos os usuários cadastrados"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/api/v1/users/{{user_id}}",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{{user_id}}"
+							]
+						},
+						"description": "Busca um usuário específico por ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Gera email único",
+									"const randomNum = Math.floor(Math.random() * 9000) + 1000;",
+									"pm.environment.set(\"random_email\", `user${randomNum}@distrischool.com`);",
+									"pm.environment.set(\"random_number\", randomNum);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"Usuario Teste {{random_number}}\",\n    \"email\": \"{{random_email}}\",\n    \"password\": \"senha123\",\n    \"role\": \"STUDENT\",\n    \"enabled\": true\n}"
+						},
+						"url": {
+							"raw": "{{gateway_url}}/api/v1/users",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						},
+						"description": "Cria um novo usuário com email único gerado automaticamente"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"Usuario Atualizado Postman\",\n    \"email\": \"usuario.atualizado@distrischool.com\",\n    \"password\": \"novaSenha456\",\n    \"role\": \"TEACHER\",\n    \"enabled\": true\n}"
+						},
+						"url": {
+							"raw": "{{gateway_url}}/api/v1/users/{{user_id}}",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{{user_id}}"
+							]
+						},
+						"description": "Atualiza os dados de um usuário existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/api/v1/users/{{user_id}}",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{{user_id}}"
+							]
+						},
+						"description": "Remove um usuário do sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "User Service Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/services/user/actuator/health",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"services",
+								"user",
+								"actuator",
+								"health"
+							]
+						},
+						"description": "Verifica o status do User Service"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin Service",
+			"item": [
+				{
+					"name": "List All Admins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/api/v1/admins",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admins"
+							]
+						},
+						"description": "Lista todos os administradores cadastrados"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Admin by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/api/v1/admins/{{admin_id}}",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admins",
+								"{{admin_id}}"
+							]
+						},
+						"description": "Busca um administrador específico por ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Admin",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Gera email único para admin",
+									"const randomNum = Math.floor(Math.random() * 9000) + 1000;",
+									"pm.environment.set(\"random_admin_email\", `admin${randomNum}@distrischool.com`);",
+									"pm.environment.set(\"random_number\", randomNum);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Admin Teste {{random_number}}\",\n    \"email\": \"{{random_admin_email}}\",\n    \"role\": \"COORDINATOR\",\n    \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{gateway_url}}/api/v1/admins",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admins"
+							]
+						},
+						"description": "Cria um novo administrador com email único gerado automaticamente"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Admin",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Admin Atualizado Postman\",\n    \"email\": \"admin.atualizado@distrischool.com\",\n    \"role\": \"DIRECTOR\",\n    \"password\": \"admin456\"\n}"
+						},
+						"url": {
+							"raw": "{{gateway_url}}/api/v1/admins/{{admin_id}}",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admins",
+								"{{admin_id}}"
+							]
+						},
+						"description": "Atualiza os dados de um administrador existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Admin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/api/v1/admins/{{admin_id}}",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admins",
+								"{{admin_id}}"
+							]
+						},
+						"description": "Remove um administrador do sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Service Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_url}}/services/admin/actuator/health",
+							"host": [
+								"{{gateway_url}}"
+							],
+							"path": [
+								"services",
+								"admin",
+								"actuator",
+								"health"
+							]
+						},
+						"description": "Verifica o status do Admin Service"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "gateway_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "teacher_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "student_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "admin_id",
+			"value": "1",
+			"type": "string"
+		}
+	]
+}

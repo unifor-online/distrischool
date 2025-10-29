@@ -1,4 +1,4 @@
-package test.java.br.unifor.distrischool.gateway;
+package br.unifor.distrischool.gateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -21,7 +21,15 @@ public class AlunoService {
     @Autowired
     private AlunoRepository alunoRepository;
 
+    public List<Aluno> listarTodos() {
+        return alunoRepository.findAll();
+    }
+
     public Aluno salvar(Aluno aluno) {
+        // Gera matrícula automaticamente se não foi fornecida
+        if (aluno.getMatricula() == null || aluno.getMatricula().isEmpty()) {
+            aluno.setMatricula(gerarMatricula());
+        }
         aluno.setHistoricoAcademicoCriptografado(encrypt(aluno.getHistoricoAcademicoCriptografado()));
         return alunoRepository.save(aluno);
     }
@@ -84,5 +92,13 @@ public class AlunoService {
         } catch (Exception e) {
             throw new RuntimeException("Erro ao descriptografar histórico acadêmico", e);
         }
+    }
+
+    private String gerarMatricula() {
+        // Gera matrícula no formato: ANO + NÚMERO_SEQUENCIAL
+        int ano = java.time.Year.now().getValue();
+        long count = alunoRepository.count();
+        // Formato: 2025001, 2025002, etc.
+        return String.format("%d%03d", ano, count + 1);
     }
 }

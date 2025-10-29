@@ -58,14 +58,14 @@ resilience4j:
   circuitbreaker:
     configs:
       default:
-        slidingWindowSize: 10
-        minimumNumberOfCalls: 5
-        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 20
+        minimumNumberOfCalls: 10
+        permittedNumberOfCallsInHalfOpenState: 5
         automaticTransitionFromOpenToHalfOpenEnabled: true
-        waitDurationInOpenState: 10s
-        failureRateThreshold: 50
-        slowCallRateThreshold: 100
-        slowCallDurationThreshold: 5s
+        waitDurationInOpenState: 5s
+        failureRateThreshold: 60
+        slowCallRateThreshold: 80
+        slowCallDurationThreshold: 10s
     instances:
       userServiceCircuitBreaker:
         baseConfig: default
@@ -79,4 +79,4 @@ resilience4j:
   timelimiter:
     configs:
       default:
-        timeoutDuration: 5s
+        timeoutDuration: 10s

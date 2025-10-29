@@ -1,0 +1,4 @@
+br\unifor\distrischool\gateway\config\GatewayConfig.class
+br\unifor\distrischool\gateway\controller\FallbackController.class
+br\unifor\distrischool\gateway\config\CorsConfig.class
+br\unifor\distrischool\gateway\GatewayApplication.class

@@ -16,6 +16,11 @@ public class AlunoController {
     @Autowired
     private AlunoService alunoService;
 
+    @GetMapping
+    public ResponseEntity<List<Aluno>> listarTodos() {
+        return ResponseEntity.ok(alunoService.listarTodos());
+    }
+
     @PostMapping
     public ResponseEntity<Aluno> cadastrar(@RequestBody AlunoDTO alunoDTO) {
         // Converter DTO para entidade

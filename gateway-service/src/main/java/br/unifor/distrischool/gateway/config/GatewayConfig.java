@@ -11,9 +11,9 @@ public class GatewayConfig {
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-                // User Service Routes
+                // User Service Routes - /api/v1/users
                 .route("user-service", r -> r
-                        .path("/api/users/**")
+                        .path("/api/v1/users/**")
                         .filters(f -> f
                                 .stripPrefix(0)
                                 .addRequestHeader("X-Gateway", "Distrischool-Gateway")
@@ -22,9 +22,9 @@ public class GatewayConfig {
                                         .setFallbackUri("forward:/fallback/users")))
                         .uri("http://user-service:8080"))
 
-                // Student Service Routes
+                // Student Service Routes - /api/alunos
                 .route("student-service", r -> r
-                        .path("/api/students/**")
+                        .path("/api/alunos/**")
                         .filters(f -> f
                                 .stripPrefix(0)
                                 .addRequestHeader("X-Gateway", "Distrischool-Gateway")
@@ -33,7 +33,7 @@ public class GatewayConfig {
                                         .setFallbackUri("forward:/fallback/students")))
                         .uri("http://student-service:8080"))
 
-                // Teacher Service Routes
+                // Teacher Service Routes - /api/teachers
                 .route("teacher-service", r -> r
                         .path("/api/teachers/**")
                         .filters(f -> f
@@ -44,9 +44,9 @@ public class GatewayConfig {
                                         .setFallbackUri("forward:/fallback/teachers")))
                         .uri("http://teacher-service:8080"))
 
-                // Admin Staff Service Routes
+                // Admin Staff Service Routes - /api/v1/admins
                 .route("admin-staff-service", r -> r
-                        .path("/api/admin/**")
+                        .path("/api/v1/admins/**")
                         .filters(f -> f
                                 .stripPrefix(0)
                                 .addRequestHeader("X-Gateway", "Distrischool-Gateway")
